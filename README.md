@@ -78,3 +78,34 @@ Authentication is sent with an HTTP-only cookie; passwords are hashed with bcryp
 4. Start the API and confirm `GET /api/health` responds successfully.
 5. Register a test account, then verify every CRUD workflow and dashboard statistic with real data.
 6. Run `npm test` in `server` and `npm run build` in `client` before deployment.
+
+
+**#file structure**
+Simple-CRM-System/
+│
+├── client/                    # React Frontend
+│   ├── src/
+│   │   ├── pages/
+│   │   │   ├── Login.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── Customers.jsx
+│   │   │   ├── Leads.jsx
+│   │   │   ├── Deals.jsx
+│   │   │   └── FollowUps.jsx
+│   │   │
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── style.css
+│   │
+│   ├── index.html
+│   └── package.json
+│
+├── server/                    # Node.js + Express
+│   ├── models.js              # MongoDB Schemas
+│   ├── routes.js              # All API Routes
+│   ├── server.js              # Server + DB Connection
+│   ├── .env                   # Database URI & Secrets
+│   └── package.json
+│
+├── .gitignore
+└── README.md
