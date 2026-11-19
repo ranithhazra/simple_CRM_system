@@ -1,0 +1,13 @@
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
+const owned = { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true };
+const userSchema = new Schema({ name: { type: String, required: true, trim: true, maxlength: 60 }, email: { type: String, required: true, unique: true, lowercase: true, trim: true }, password: { type: String, required: true, select: false } }, { timestamps: true });
+const customerSchema = new Schema({ owner: owned, name: { type: String, required: true, trim: true }, email: { type: String, trim: true, lowercase: true }, phone: { type: String, trim: true }, company: { type: String, trim: true }, address: { type: String, trim: true }, notes: { type: String, trim: true } }, { timestamps: true });
+const leadSchema = new Schema({ owner: owned, name: { type: String, required: true, trim: true }, email: { type: String, trim: true, lowercase: true }, phone: { type: String, trim: true }, company: { type: String, trim: true }, status: { type: String, enum: ['New', 'Contacted', 'Interested', 'Converted', 'Lost'], default: 'New' }, notes: { type: String, trim: true } }, { timestamps: true });
+const dealSchema = new Schema({ owner: owned, title: { type: String, required: true, trim: true }, customer: { type: Schema.Types.ObjectId, ref: 'Customer', required: true }, amount: { type: Number, required: true, min: 0 }, status: { type: String, enum: ['Pending', 'Won', 'Lost'], default: 'Pending' }, expectedCloseDate: { type: Date, required: true } }, { timestamps: true });
+const followUpSchema = new Schema({ owner: owned, customer: { type: Schema.Types.ObjectId, ref: 'Customer', required: true }, date: { type: Date, required: true }, time: { type: String, required: true, trim: true }, description: { type: String, required: true, trim: true }, status: { type: String, enum: ['Pending', 'Completed'], default: 'Pending' } }, { timestamps: true });
+export const User = model('User', userSchema);
+export const Customer = model('Customer', customerSchema);
+export const Lead = model('Lead', leadSchema);
+export const Deal = model('Deal', dealSchema);
+export const FollowUp = model('FollowUp', followUpSchema);
